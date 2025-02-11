@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CityPage from './CityPage'; 
 
@@ -52,6 +52,12 @@ const Welcome = () => {
       <Text style={styles.subText}>
         Explore different cities in Alberta by selecting a tab below.
       </Text>
+      <View style={styles.signInContainer}>
+        <Text style={styles.label}>Sign In</Text>
+        <TextInput style={styles.input} placeholder="Username" />
+        <TextInput style={styles.input} placeholder="Password" secureTextEntry />
+        <Button title="Sign In" color="#4682b4" />
+      </View>
       <View style={styles.bottomTabContainer}>
         <BottomTabs />
       </View>
@@ -79,6 +85,32 @@ const styles = StyleSheet.create({
     color: '#666',
     textAlign: 'center',
     marginBottom: 20,
+  },
+  signInContainer: {
+    width: '80%',
+    padding: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    marginBottom: 20,
+  },
+  label: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  input: {
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
   bottomTabContainer: {
     flex: 1,

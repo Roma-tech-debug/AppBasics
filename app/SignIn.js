@@ -8,7 +8,6 @@ import {
   StyleSheet 
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import LinearGradient from 'react-native-linear-gradient';  // Import LinearGradient
 
 // Regular expressions for validation
 const usernameRegex = /^.{5,}$/;  
@@ -47,10 +46,7 @@ const SignIn = () => {
   };
 
   return (
-    <LinearGradient
-      colors={['#6a11cb', '#2575fc']}  // Gradient from purple to blue
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <Text style={styles.title}>Sign In</Text>
 
       <TextInput
@@ -77,7 +73,7 @@ const SignIn = () => {
       >
         <Text style={styles.buttonText}>Sign In</Text>
       </TouchableOpacity>
-    </LinearGradient>
+    </View>
   );
 };
 
@@ -87,23 +83,25 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
+    backgroundColor: '#e6f7ff', // Light pastel blue background
   },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
     marginBottom: 30,
-    color: '#fff',
+    color: '#003366',
   },
   input: {
     width: '100%',
     height: 50,
-    borderColor: '#ddd',
+    borderColor: '#4682b4', // Soft blue border
     borderWidth: 1,
     borderRadius: 15,
     marginBottom: 20,
     paddingHorizontal: 15,
     backgroundColor: '#fff',
     fontSize: 16,
+    color: '#003366',
   },
   button: {
     backgroundColor: '#007BFF',

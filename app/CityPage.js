@@ -1,83 +1,143 @@
-import React, { useState } from "react";
-import { View, Text, Linking, StyleSheet, Image, TouchableOpacity } from "react-native";
-import { LinearGradient } from 'react-native-linear-gradient';  // Import LinearGradient
+import React from 'react';
+import { View, Text, StyleSheet, TextInput, Button } from 'react-native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import CityPage from './CityPage'; 
 
-const CityPage = ({ city, link, imageUri, description }) => {
-  const [isPressed, setIsPressed] = useState(false);
+const Tab = createBottomTabNavigator();
 
+const SignInScreen = () => {
   return (
-    <LinearGradient
-      colors={['#00c6ff', '#0072ff']} // Gradient colors
-      style={styles.container}
-    >
-      <Image source={{ uri: imageUri }} style={styles.image} />
-      <Text style={styles.name}>{city}</Text>
-      <Text style={styles.description}>{description}</Text>
+    <View style={styles.signInContainer}>
+      <Text style={styles.signInTitle}>Sign In</Text>
+      <TextInput style={styles.input} placeholder="Email" keyboardType="email-address" />
+      <TextInput style={styles.input} placeholder="Password" secureTextEntry />
+      <Button title="Sign In" color="#007bff" />
+    </View>
+  );
+};
 
-      <TouchableOpacity
-        onPress={() => Linking.openURL(link)}
-        onPressIn={() => setIsPressed(true)}
-        onPressOut={() => setIsPressed(false)}
-        style={[styles.button, isPressed && styles.buttonPressed]}
-      >
-        <Text style={styles.buttonText}>Visit {city} Website</Text>
-      </TouchableOpacity>
-    </LinearGradient>
+const BottomTabs = () => (
+  <Tab.Navigator 
+    screenOptions={{
+      tabBarStyle: styles.tabBar,
+      tabBarActiveTintColor: '#ff6347', // Active tab color
+      tabBarInactiveTintColor: '#ffffff', // Inactive tab color
+      tabBarLabelStyle: styles.tabLabel,
+      tabBarActiveBackgroundColor: '#4682b4', // Active background color
+      tabBarInactiveBackgroundColor: '#1e90ff', // Inactive background color
+    }}
+  >
+    <Tab.Screen 
+      name="Sign In"
+      component={SignInScreen}
+      options={{ tabBarLabelStyle: styles.tabLabel }}
+    />
+    <Tab.Screen 
+      name="Calgary"
+      options={{ tabBarLabelStyle: styles.tabLabel }}
+    >
+      {() => (
+        <CityPage 
+          city="Calgary" 
+          link="https://www.calgary.ca/home.html" 
+          imageUri={require('../img/Calgary.jpg')} 
+          description="Calgary is the largest city in Alberta." 
+        />
+      )}
+    </Tab.Screen>
+    <Tab.Screen 
+      name="Edmonton"
+      options={{ tabBarLabelStyle: styles.tabLabel }}
+    >
+      {() => (
+        <CityPage 
+          city="Edmonton" 
+          link="https://www.edmonton.ca/" 
+          imageUri={require('../img/Edmonton.jpg')} 
+          description="Edmonton is the capital city of Alberta." 
+        />
+      )}
+    </Tab.Screen>
+  </Tab.Navigator>
+);
+
+const Welcome = () => {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcomeText}>Welcome to My App Basics!</Text>
+      <Text style={styles.subText}>
+        Explore different cities in Alberta by selecting a tab below.
+      </Text>
+      <View style={styles.bottomTabContainer}>
+        <BottomTabs />
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: '#e6f7ff', // Light pastel blue background
+    paddingTop: 40,
+    paddingHorizontal: 20,
+    alignItems: 'center',
+  },
+  signInContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f9fa',
     padding: 20,
   },
-  image: {
-    width: 250,
-    height: 250,
-    borderRadius: 15,
-    marginBottom: 15,
-    borderWidth: 2,
-    borderColor: "#ddd",
-    shadowColor: "#000",
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  name: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#fff",
-    marginBottom: 10,
-    textTransform: "uppercase",
-  },
-  description: {
-    fontSize: 18,
-    color: "#fff",
-    textAlign: "center",
+  signInTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
     marginBottom: 20,
-    paddingHorizontal: 15,
-    lineHeight: 24,
+    color: '#333',
   },
-  button: {
-    backgroundColor: "#007bff",
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 8,
-    shadowColor: "#000",
-    shadowOffset: { width: 2, height: 3 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
+  input: {
+    width: '80%',
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+    backgroundColor: '#fff',
   },
-  buttonPressed: {
-    backgroundColor: "#0056b3",
-    transform: [{ scale: 0.95 }],
+  welcomeText: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#003366',
+    textAlign: 'center',
+    marginBottom: 10,
   },
-  buttonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
+  subText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  bottomTabContainer: {
+    flex: 1,
+    width: '100%',
+    marginTop: 20,
+  },
+  tabBar: {
+    backgroundColor: '#1e90ff', // Slightly darker blue tab background
+    height: 60,
+    borderTopWidth: 2,
+    borderTopColor: '#4682b4', // Adding border to give separation
+  },
+  tabLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    paddingBottom: 5, // Slight space below label for neatness
+  },
+  activeTabStyle: {
+    backgroundColor: '#ff6347', // Red when active
   },
 });
 
