@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Linking, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { LinearGradient } from 'react-native-linear-gradient';  // Import LinearGradient
 
 const CityPage = ({ city, link, imageUri, description }) => {
-  return (
-    <View style={styles.container}>
-      <Image source={{ uri: imageUri }} style={styles.image} />
+  const [isPressed, setIsPressed] = useState(false);
 
+  return (
+    <LinearGradient
+      colors={['#00c6ff', '#0072ff']} // Gradient colors
+      style={styles.container}
+    >
+      <Image source={{ uri: imageUri }} style={styles.image} />
       <Text style={styles.name}>{city}</Text>
       <Text style={styles.description}>{description}</Text>
 
-      <TouchableOpacity onPress={() => Linking.openURL(link)} style={styles.button}>
+      <TouchableOpacity
+        onPress={() => Linking.openURL(link)}
+        onPressIn={() => setIsPressed(true)}
+        onPressOut={() => setIsPressed(false)}
+        style={[styles.button, isPressed && styles.buttonPressed]}
+      >
         <Text style={styles.buttonText}>Visit {city} Website</Text>
       </TouchableOpacity>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -21,35 +31,51 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f5f5f5",
     padding: 20,
   },
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 10,
+    width: 250,
+    height: 250,
+    borderRadius: 15,
     marginBottom: 15,
+    borderWidth: 2,
+    borderColor: "#ddd",
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
   },
   name: {
-    fontSize: 28,
+    fontSize: 30,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
     marginBottom: 10,
+    textTransform: "uppercase",
   },
   description: {
     fontSize: 18,
-    color: "#555",
+    color: "#fff",
     textAlign: "center",
     marginBottom: 20,
+    paddingHorizontal: 15,
+    lineHeight: 24,
   },
   button: {
     backgroundColor: "#007bff",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 5,
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 8,
+    shadowColor: "#000",
+    shadowOffset: { width: 2, height: 3 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+  },
+  buttonPressed: {
+    backgroundColor: "#0056b3",
+    transform: [{ scale: 0.95 }],
   },
   buttonText: {
-    fontSize: 16,
+    fontSize: 18,
     color: "#fff",
     fontWeight: "bold",
   },

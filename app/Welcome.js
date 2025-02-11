@@ -6,7 +6,16 @@ import CityPage from './CityPage';
 const Tab = createBottomTabNavigator();
 
 const BottomTabs = () => (
-  <Tab.Navigator screenOptions={{ tabBarStyle: styles.tabBar }}>
+  <Tab.Navigator 
+    screenOptions={{
+      tabBarStyle: styles.tabBar,
+      tabBarActiveTintColor: '#ff6347', // Active tab color
+      tabBarInactiveTintColor: '#ffffff', // Inactive tab color
+      tabBarLabelStyle: styles.tabLabel,
+      tabBarActiveBackgroundColor: '#4682b4', // Active background color
+      tabBarInactiveBackgroundColor: '#1e90ff', // Inactive background color
+    }}
+  >
     <Tab.Screen 
       name="Calgary"
       options={{ tabBarLabelStyle: styles.tabLabel }}
@@ -53,7 +62,7 @@ const Welcome = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f8ff', // Light blue background
+    backgroundColor: '#e6f7ff', // Light pastel blue background
     paddingTop: 40,
     paddingHorizontal: 20,
     alignItems: 'center',
@@ -61,7 +70,7 @@ const styles = StyleSheet.create({
   welcomeText: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#003366',
     textAlign: 'center',
     marginBottom: 10,
   },
@@ -74,15 +83,22 @@ const styles = StyleSheet.create({
   bottomTabContainer: {
     flex: 1,
     width: '100%',
+    marginTop: 20,
   },
   tabBar: {
-    backgroundColor: '#007bff', // Blue tab background
+    backgroundColor: '#1e90ff', // Slightly darker blue tab background
     height: 60,
+    borderTopWidth: 2,
+    borderTopColor: '#4682b4', // Adding border to give separation
   },
   tabLabel: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#ffffff',
+    paddingBottom: 5, // Slight space below label for neatness
+  },
+  activeTabStyle: {
+    backgroundColor: '#ff6347', // Red when active
   },
 });
 
